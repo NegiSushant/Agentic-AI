@@ -1,3 +1,5 @@
 autogen-ext[openai,azure]
 azure-identity
 python-dotenv
+autogen-agentchat
+autogen-core

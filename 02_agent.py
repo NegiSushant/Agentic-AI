@@ -8,34 +8,37 @@
 
 # Assistant agent 
 from autogen_agentchat.agents import AssistantAgent
-from autogen_agentchant.messages import TextMessage
+from autogen_agentchat.messages import TextMessage
 from autogen_agentchat.ui import Console
 from autogen_core import CancellationToken
 from autogen_ext.models.openai import AzureOpenAIChatCompletionClient
 from dotenv import load_dotenv
+import asyncio
 import os
 
 
 load_dotenv()
-endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-key = os.getenv("AZURE_OPENAI_KEY")
-apiVersion = os.getenv("ApiVersion")
+endpoint = os.getenv("AZURE_ENDPOINT")
+Api_key = os.getenv("API_KEY")
+apiVersion = os.getenv("OPENAI_API_VERSION")
+
 
 async def web_serch(query: str) -> str:
     """Find information on the web"""
     return "Autogen is a Programing framework for building multi-agent applications."
 
-model_client = AzureOpenAIChatCompletionClient(
-    api_key = key,
+client = AzureOpenAIChatCompletionClient(
     azure_depoyment_id="gpt-4o",
     model="gpt-4o",
     api_version= apiVersion,
-    azure_endpoint="endpoint",
+    azure_endpoint=endpoint,
+    # AZURE_OPENAI_API_KEY = Api_key
+    api_key = Api_key
 )
 
 agent = AssistantAgent(
     name="assistent",
-    model_client = model_client,
+    model_client = client,
     tools=[web_serch],
     system_message = "Use tools to solve tasks."
 )
@@ -43,8 +46,15 @@ agent = AssistantAgent(
 # getting the responses
 async def assistant_run():
     response = await agent.on_messages(
-        [TextMessage(content= "Find information on Autogen", source="User")],
-        CancellationToken=CancellationToken()
+        [TextMessage(content="Find information on AutoGen", source="user")],
+        cancellation_token=CancellationToken(),
     )
     return response.inner_messages, response.chat_message
 
+
+async def main():
+    response_mess,  res_chat_mess = await assistant_run()
+    print(response_mess, res_chat_mess)
+
+if __name__ == "__main__":
+    asyncio.run(main())
