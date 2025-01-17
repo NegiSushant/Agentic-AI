@@ -50,8 +50,16 @@ async def assistant_run():
         cancellation_token=CancellationToken(),
     )
     return response.inner_messages, response.chat_message
+async def assistant_run2():
+    # Option 2: use Console to print all messages as they appear.
+    await Console(
+        agent.on_messages_stream(
+            [TextMessage(content="Find information on AutoGen", source="user")],
+            cancellation_token=CancellationToken(),
+        )
+    )
 
-
+# asyncio.run(assistant_run2())
 async def main():
     response_mess,  res_chat_mess = await assistant_run()
     print(response_mess, res_chat_mess)
