@@ -13,8 +13,6 @@ apiVersion = os.getenv("ApiVersion")
 
 
 client = AzureOpenAIChatCompletionClient( 
-
-    # token_provider=token_provider,
     api_key = key,
     azure_depoyment_id="gpt-4o",
     model="gpt-4o",
