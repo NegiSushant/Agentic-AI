@@ -1,6 +1,8 @@
 from autogen_ext.models.openai import AzureOpenAIChatCompletionClient
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from dotenv import load_dotenv
+from autogen_core.model_context import BufferedChatCompletionContext
+
 import os
 
 
@@ -19,5 +21,7 @@ client = AzureOpenAIChatCompletionClient(
     api_version= apiVersion,
     azure_endpoint=endpoint,
     # AZURE_OPENAI_API_KEY = Api_key
-    api_key = Api_key
+    api_key = Api_key,
+    # agent that uses only the last 5 messages in the context to generate responses. for more info see the 04_ModelContext.py
+    model_context=BufferedChatCompletionContext(buffer_size=5),
 )
