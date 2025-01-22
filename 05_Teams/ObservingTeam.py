@@ -52,8 +52,15 @@ team = RoundRobinGroupChat(
 )
 
 async def main():
-    result = await team.run(task="Write a short poem about the winter season.")
-    print(result)
+    
+    async for message in team.run_stream(task="Write a short poem about the winter season."):
+        if isinstance(message, TaskResult):
+            print("Stop Reason:", message.stop_reason)
+        else: 
+            print(message)
+    await team.reset()
+    # result = await team.run(task="Write a short poem about the winter season.")
+    # print(result)
     return
 
 if __name__ == "__main__":
