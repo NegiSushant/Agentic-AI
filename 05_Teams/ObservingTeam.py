@@ -58,7 +58,7 @@ async def main():
             print("Stop Reason:", message.stop_reason)
         else: 
             print(message)
-    await team.reset()
+    await team.reset() #this mathod clear the team status, including all agents. It will call the each agent's on_reset() method to clear the agent's state
     # result = await team.run(task="Write a short poem about the winter season.")
     # print(result)
     return
