@@ -50,8 +50,9 @@ async def StopAgent():
     run = await (team.run(task="Write a short poem about the fall season."))
     await asyncio.sleep(0.1)
     external_termination.set()
-    team.run_stream()
+    team.run_stream() #resume a team to continue from where it left off by calling the run() or run_stream() method again without a new task.
     return run
+
 
 
 async def main():
