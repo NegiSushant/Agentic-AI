@@ -10,17 +10,19 @@ import asyncio
 
 
 class CountDownAgent(BaseChatAgent):
-    def __init__(self, name:str, count: int =3):
+    def __init__(self, name: str, count: int = 3):
         super().__init__(name, "Count Down Agent")
         self._count = count
 
     
     @property
-    def produced_message_type(self)->Sequence[type[ChatMessage]]:
+    def produced_message_types(self)->Sequence[type[ChatMessage]]:
         return (TextMessage)
     
     async def on_messages(self, messages: Sequence[ChatMessage], cancellation_token: CancellationToken) -> Response:
         #Calls the on_messages_stream
+        response: Response | None = None
+        
         async for message in self.on_messages_stream(messages, cancellation_token):
             if isinstance(message, Response):
                 response = message
