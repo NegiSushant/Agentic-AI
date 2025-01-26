@@ -30,13 +30,13 @@ async def call_result(task):
 
 async def main():
     task = input("make ask for your agent: ")
-    # async for message in lazy_agent_team.run_stream(task=task):
-    #     if isinstance(message, TaskResult):
-    #         print("Stop Reason:", message.stop_reason)
-    #     else: 
-    #         print(message)
-    result = await call_result(task)
-    print(result)
+    async for message in lazy_agent_team.run_stream(task=task):
+        if isinstance(message, TaskResult):
+            print("Stop Reason:", message.stop_reason)
+        else: 
+            print(message)
+    # result = await call_result(task)
+    # print(result)
 
 if __name__ == '__main__':
     asyncio.run(main())
