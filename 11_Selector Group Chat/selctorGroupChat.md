@@ -14,3 +14,5 @@
   3. ther termination condition is checked to determine if the conversation should end, if not, the process repeats from step 1.
   4. When the conversation ends, the team returns the TaskResult containing the conversation history from this task.
 * Once the team finished the task, the converstion context is kept within the team and all pariticipants, so the next task can continue from the previous conversation  context. we can reset the conversation context by calling reset().
+
+# By default, [`AssistantAgent`](https://microsoft.github.io/autogen/stable/reference/python/autogen_agentchat.agents.html#autogen_agentchat.agents.AssistantAgent "autogen_agentchat.agents.AssistantAgent") returns the tool output as the response. If your tool does not return a well-formed string in natural language format, you may want to add a reflection step within the agent by setting `reflect_on_tool_use=True` when creating the agent. This will allow the agent to reflect on the tool output and provide a natural language response.
