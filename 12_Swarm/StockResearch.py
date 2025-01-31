@@ -91,7 +91,7 @@ research_team = Swarm(
 )
 
 async def main():
-    task = "Conduct market research for TSLA stock"
+    task = "Conduct market research for TSLA stock."
     await Console(research_team.run_stream(task=task))
 
 if __name__ == "__main__":
