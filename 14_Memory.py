@@ -11,13 +11,16 @@ from Client_initialization import client
 
 
 user_memory = ListMemory()
-# Initialize user memory
-def initMemo():
-    
-    user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
 
-    user_memory.add(MemoryContent(content="Meal recipe must be vegan", mime_type=MemoryMimeType.TEXT))
-    return user_memory
+user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
+
+user_memory.add(MemoryContent(content="Meal recipe must be vegan",mime_type=MemoryMimeType.TEXT))
+# Initialize user memory
+# def initMemo():
+#     user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
+
+#     user_memory.add(MemoryContent(content="Meal recipe must be vegan", mime_type=MemoryMimeType.TEXT))
+#     return user_memory
 
 
 
@@ -34,6 +37,7 @@ assistant_agent = AssistantAgent(
     name="assistant_agent",
     model_client=client,
     tools=[get_weather],
+    # memoryview = user_memory
     memory=[user_memory],
 )
 
