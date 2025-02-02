@@ -8,18 +8,19 @@ from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.ui import Console
 from autogen_core.memory import ListMemory, MemoryContent, MemoryMimeType
 from Client_initialization import client
+import asyncio
 
 
-user_memory = ListMemory()
 
-user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
+# user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
 
-user_memory.add(MemoryContent(content="Meal recipe must be vegan",mime_type=MemoryMimeType.TEXT))
+# user_memory.add(MemoryContent(content="Meal recipe must be vegan",mime_type=MemoryMimeType.TEXT))
 # Initialize user memory
-# def initMemo():
-#     user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
+# async def initMemo():
+#     user_memory = ListMemory()
+#     await user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
 
-#     user_memory.add(MemoryContent(content="Meal recipe must be vegan", mime_type=MemoryMimeType.TEXT))
+#     await user_memory.add(MemoryContent(content="Meal recipe must be vegan", mime_type=MemoryMimeType.TEXT))
 #     return user_memory
 
 
@@ -33,17 +34,21 @@ async def get_weather(city: str, units: str = "imperial") -> str:
         return f"Sorry, I don't know the weather in {city}."
 
 
-assistant_agent = AssistantAgent(
-    name="assistant_agent",
-    model_client=client,
-    tools=[get_weather],
-    # memoryview = user_memory
-    memory=[user_memory],
-)
-
-
 async def main():
     # Add user preferences to memory
+    user_memory = ListMemory()
+    await user_memory.add(MemoryContent(content="The weather should be in metric units", mime_type=MemoryMimeType.TEXT))
 
+    await user_memory.add(MemoryContent(content="Meal recipe must be vegan", mime_type=MemoryMimeType.TEXT))
+    assistant_agent = AssistantAgent(
+        name="assistant_agent",
+        model_client=client,
+        tools=[get_weather],
+        # memoryview = user_memory
+        memory=[user_memory],
+    )
     stream = assistant_agent.run_stream(task="What is the weather in New York?")
     await Console(stream)
+
+if __name__ == "__main__":
+    asyncio.run(main())
