@@ -44,7 +44,6 @@ async def main():
         name="assistant_agent",
         model_client=client,
         tools=[get_weather],
-        # memoryview = user_memory
         memory=[user_memory],
     )
     stream = assistant_agent.run_stream(task="What is the weather in New York?")
