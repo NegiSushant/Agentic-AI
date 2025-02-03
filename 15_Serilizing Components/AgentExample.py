@@ -14,3 +14,8 @@ user_proxy = UserProxyAgent(name="user")
 user_proxy_config = user_proxy.dump_component()  # dump component
 print(user_proxy_config.model_dump_json())
 up_new = user_proxy.load_component(user_proxy_config)  # load component
+
+
+agent_config = agent.dump_component()  # dump component
+print(agent_config.model_dump_json())
+agent_new = agent.load_component(agent_config)  # load component
