@@ -4,7 +4,7 @@ from autogen_agentchat.ui import Console
 from Client_initialization import client
 from autogen_agentchat.teams import RoundRobinGroupChat
 import asyncio
-
+from autogen_core import Image
 #defining Agents
 planner_agent = AssistantAgent(
     "planner_agent",
