@@ -21,7 +21,6 @@ client = AzureOpenAIChatCompletionClient(
     model="gpt-4o",
     api_version= apiVersion,
     azure_endpoint=endpoint,
-    # AZURE_OPENAI_API_KEY = Api_key
     api_key = Api_key,
 )
 
