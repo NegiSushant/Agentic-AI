@@ -64,7 +64,12 @@ async def main():
     await runtime.send_message(MyMessageType("Hello, World!"), AgentId("my_agent", "default"))
     await runtime.send_message(MyMessageType("Hello, Negi!"), AgentId("my_assistant", "default"))
     await runtime.stop()
+    # await runtime.stop_when_idle()  # This will block until the runtime is idle.
+
+    # To close the runtime and release resources, use the close() method:
+    await runtime.close()
     # print(message)
+
     # async with SimpleAgentRuntime() as runtime:
     #     agent = await runtime.create_agent(MyAgent)
 
