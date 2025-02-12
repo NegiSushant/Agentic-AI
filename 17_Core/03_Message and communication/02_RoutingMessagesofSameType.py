@@ -39,7 +39,7 @@ async def main():
     await runtime.send_message(TextMessage(content="Hello, Bharat!", source = "user2- test"), agent_id)
     await runtime.send_message(ImageMessage(url="https://something.com/image.jpg", source="user1-test"), agent_id)
     await runtime.send_message(ImageMessage(url="https://something.com/image.jpg", source="user2-test"), agent_id)
-
+    # In the above, the first ImageMessage is not handled because the source field of the message does not match the handler’s match condition.
 
 if __name__ == "__main__":
     asyncio.run(main())
