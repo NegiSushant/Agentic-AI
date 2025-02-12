@@ -6,11 +6,13 @@ from dataclasses import dataclass
 
 @dataclass
 class TextMessage:
-    content: str
+    content : str
+    source : str
 
 @dataclass
 class ImageMessage:
-    content: str
+    url : str
+    source : str
 
 class MyAgent(RoutedAgent):
     @message_handler
@@ -22,6 +24,7 @@ class MyAgent(RoutedAgent):
         print(f"Hello, {message.source}, you sent me {message.url}!")
 
 async def main():
+    #creating the agent runtime and register the agent type.
     runtime = SingleThreadedAgentRuntime()
     await MyAgent.register(runtime, "my_agent", lambda: MyAgent("My Agent"))
     # AgentType(type='my_agent')
