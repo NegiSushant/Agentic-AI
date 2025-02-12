@@ -30,4 +30,10 @@ class ImageMessage:
 # Routing messages by Type
 
 * the RoutedAgnet base class provides a mechanism for associating message types with message handlers with the message_handler() decorator, so do not need to implement the on_message() method.
+
+# Routing Messages of the Same Type
+
+* useful to route messages of the same type to different handlers. e.g. message from different sender agents should be handled differently.
+* use the match parameter of the message_handler() decorator.
+* match parameter associates handlers for the same message type to a specific message, which is secondary to the message type routing, accepts a callable that takes the message and MessageContext as arguments, return boolean which indicate wether the message should be handled by the decorated handler.
 *
