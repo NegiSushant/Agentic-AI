@@ -36,4 +36,12 @@ class ImageMessage:
 * useful to route messages of the same type to different handlers. e.g. message from different sender agents should be handled differently.
 * use the match parameter of the message_handler() decorator.
 * match parameter associates handlers for the same message type to a specific message, which is secondary to the message type routing, accepts a callable that takes the message and MessageContext as arguments, return boolean which indicate wether the message should be handled by the decorated handler.
-*
+
+# Direct Messaging
+
+* two types of communication in AutoGen core:
+  * **Direct Messaging:** sends a direct message to another agent.
+    * to send a direct message to another agent, within a message handler use the [`autogen_core.BaseAgent.send_message()`](https://microsoft.github.io/autogen/stable//reference/python/autogen_core.html#autogen_core.BaseAgent.send_message "autogen_core.BaseAgent.send_message")method, from the runtime use the [`autogen_core.AgentRuntime.send_message()`](https://microsoft.github.io/autogen/stable//reference/python/autogen_core.html#autogen_core.AgentRuntime.send_message "autogen_core.AgentRuntime.send_message") method. Awaiting calls to these methods will return the return value of the receiving agent’s message handler. When the receiving agent’s handler returns `None`, `None` will be returned.
+    * ***If the invoked agent raises an exception while the sender is awaiting, the exception will be propagated back to the sender.***
+    * Direct messaging can be used for request/response scenarios, where the sender expects a response from the receiver. The receiver can respond to the message by returning a value from its message handler. You can think of this as a function call between agents.
+  * **Broadcast:** publishes a message to a topic.
