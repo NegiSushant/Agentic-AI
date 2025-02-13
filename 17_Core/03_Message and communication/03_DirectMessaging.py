@@ -21,7 +21,7 @@ class OuterAgent(RoutedAgent):
     @message_handler
     async def on_my_message(self, message: Message, ctx: MessageContext) -> None:
         print(f"Received message: {message.content}")
-        # Send a direct message to the inner agent and receves a response.
+        # Send a direct message to the inner agent and receves a response .
         response = await self.send_message(Message(f"Hello from outer, {message.content}"), self.inner_agent_id)
         print(f"Received inner response: {response}")
         print(f"Received inner response content: {response.content}")
