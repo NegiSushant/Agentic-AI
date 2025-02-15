@@ -30,6 +30,21 @@ async def main():
     # the runtime when the agent is registered.
     res1 = await ReceivingAgent.register(runtime, "receiving_agent", lambda: ReceivingAgent("Receiving Agent"))
     print(f"option1: {res1}")
+
+    #option 2: with TypeSubscription
+    res2 = await BroadcastingAgent.register(runtime, "broadcasting_agent", lambda: BroadcastingAgent("Broadcasting Agent"))
+    print(f"option2 res2: {res2}")
+    res21 = await runtime.add_subscription(TypeSubscription(topic_type="default", agent_type="broadcasting_agent"))
+    print(f"option2 res21: {res21}")
+
+    #start the runtime and publish a message.
+    runtime.start()
+    final_res = await runtime.publish_message(
+        Message("Hello, World! From the runtime!"),
+        topic_id=TopicId(type="default", source="default")
+    )
+    print(f"Final res:{final_res}")
+    await runtime.stop_when_idle()
     
 if __name__ == "__main__":
     asyncio.run(main())
