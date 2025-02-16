@@ -6,3 +6,4 @@ autogen-core
 pandas
 langchain>=0.0.225
 langchain-experimental
+autogen-ext[grpc]
