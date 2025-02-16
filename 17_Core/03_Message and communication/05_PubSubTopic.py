@@ -14,12 +14,13 @@ class ReceivingAgent(RoutedAgent):
     async def on_my_message(self, message: Message, ctx: MessageContext)-> None:
         print(f"Received a message: {message.content}")
 
+
 class BroadcastingAgent(RoutedAgent):
     @message_handler
-    async def on_my_messages(self, message: Message, ctx: MessageContext) -> None:
+    async def on_my_message(self, message: Message, ctx: MessageContext) -> None:
         await self.publish_message(
-            MessageContext("Publishing a message from broadcating agent!"),
-            topic_id=TopicId(type="default", source=self.id.key)
+            Message("Publishing a message from broadcasting agent!"),
+            topic_id=TopicId(type="default", source=self.id.key),
         )
 
 runtime = SingleThreadedAgentRuntime()
