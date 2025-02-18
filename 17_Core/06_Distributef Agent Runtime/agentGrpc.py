@@ -35,15 +35,16 @@ async def main():
     host.start()
 
     worker1 = GrpcWorkerAgentRuntime(host_address="localhost:50051")
-    worker2 = GrpcWorkerAgentRuntime(host_address="localhost:50051")
     await worker1.start()
     await MyAgent.register(worker1, "worker1", lambda: MyAgent("worker1"))
 
+    worker2 = GrpcWorkerAgentRuntime(host_address="localhost:50051")
     await worker2.start()
     await MyAgent.register(worker2, "worker2", lambda: MyAgent("worker2"))
 
     await worker2.publish_message(MyMessage(content="Hello!"), DefaultTopicId())
 
+    # Let the agents run for a while.
     await asyncio.sleep(5)
     await worker1.stop()
     await worker2.stop()
