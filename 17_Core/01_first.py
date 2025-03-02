@@ -36,11 +36,10 @@ class Checker(RoutedAgent):
                 print(f"{'-'*80}\nChecker:\n{message.content} failed the check, stopping.")
     
 
-#create an local embedded runtime.
+#create an local embedded runtime for agent.
 runtime = SingleThreadedAgentRuntime()
 
-#register the modifier and checker agents by providing
-#their agent types, the factory functions for creating instance and subscriptions.
+#register the modifier and checker agents by providing their agent types, the factory functions for creating instance and subscriptions.
 async def Agents():
     await Modifier.register(
         runtime,
