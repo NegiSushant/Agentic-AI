@@ -9,7 +9,7 @@ az_model_client = AzureOpenAIChatCompletionClient(
     azure_deployment="{deployement}",
     model="gpt-4o",
     api_version="2024-06-01",
-    azure_endpoint="https://{cred}.openai.azure.com/",
+    azure_endpoint="https://{}.openai.azure.com/",
     azure_ad_token_provider=token_pro
 )
 
