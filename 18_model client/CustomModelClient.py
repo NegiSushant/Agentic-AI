@@ -49,7 +49,6 @@ async def main():
                 model="gpt-4o",
                 api_version= apiVersion,
                 azure_endpoint=endpoint,
-
                 api_key = Api_key,
             )
         ),
